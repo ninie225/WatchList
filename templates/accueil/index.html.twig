@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Filmothèque{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <div class="row my-3 align-items-center">
+        <h5 class="fw-light text-secondary col-10">Found {{ nbMovies }} media</h5>
+        <a href="#" class="btn btn-outline-light col-2 text-center">Ajouter un film</a>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+        {% for movie in movies %}
+            <div class="col">
+                <div class="card h-100 bg-transparent border-0">
+                    <a href="{{ path('app_show', {'id': movie.id}) }}">
+                        <img src="{{ asset('uploads/movies/' ~ movie.picture) }}" 
+                             class="card-img-top" 
+                             alt="{{ movie.title }}" 
+                             style="object-fit: cover; height: 350px; width: 100%;">
+                    </a>
+
+                    <div class="card-body px-0">
+                        <p class="card-text text-white mb-0">{{ movie.title }}</p>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p class="text-white">Aucun film trouvé.</p>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

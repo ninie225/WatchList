@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du film{% endblock %}
+
+{% block body %}
+<div class="container-fluid p-0">
+    <div class="row g-0">
+        {# Colonne gauche : infos texte #}
+        <div class="col-md-6 d-flex flex-column justify-content-center text-white p-5">
+            <h1 class="mb-4">{{ movie.title }}</h1>
+            <p><strong>Année :</strong> {{ movie.year }}</p>
+            <p><strong>Réalisateur :</strong> {{ movie.filmmaker }}</p>
+
+            <div class="my-4">
+                <form method="post" action="{{ path('app_rate', {id: movie.id}) }}">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" 
+                            id="isWatched" name="isWatched" value="1"
+                            {% if movie.isWatched %}checked{% endif %}>
+                        <label class="form-check-label" for="isWatched">
+                            Vu
+                        </label>
+                    </div>
+
+                    {% if movie.isWatched %}
+                        <h5>Noter ce film :</h5>
+                        <div class="rating">
+                            {% for i in 5..1 %}
+                                <input type="radio" id="star{{ i }}" name="note" value="{{ i }}"
+                                    {% if movie.note == i %}checked{% endif %}>
+                                <label for="star{{ i }}">★</label>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <button type="submit" class="btn btn-outline-light col-4 mt-3">Enregistrer</button>
+                </form>
+            </div>
+            <a href="{{ path('app_movie', {id: movie.id}) }}" class="btn btn-outline-info mt-5 col-4">Modifier</a>
+        </div>
+
+        {# Colonne droite : image en grand #}
+        <div class="col-md-6 p-0">
+            <img src="{{ asset('uploads/movies/' ~ movie.picture) }}" 
+                 alt="{{ movie.title }}" 
+                 class="img-fluid w-100 h-100" 
+                 style="object-fit: cover;">
+        </div>
+    </div>
+
+</div>
+{% endblock %}

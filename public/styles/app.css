@@ -1,0 +1,43 @@
+body {
+    color: white;
+}
+
+.card, .card-body {
+    color: white;
+}
+
+.navbar-brand img {
+    max-height: 50px;
+    width: auto;
+}
+
+.star {
+    color: gold;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+}
+
+.rating {
+  direction: rtl; 
+  unicode-bidi: bidi-override;
+  font-size: 2rem;
+  display: inline-flex;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  color: #444;
+  cursor: pointer;
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+  color: gold;
+}
+
+
+
