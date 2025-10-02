@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Filmothèque{% endblock %}
+{% block title %}WatchList{% endblock %}
 
 {% block body %}
 <div class="container">
 
     <div class="row my-3 align-items-center">
         <h5 class="fw-light text-secondary col-10">Found {{ nbMovies }} media</h5>
-        <a href="#" class="btn btn-outline-light col-2 text-center">Ajouter un film</a>
+        <a href="{{ path('app_add') }}" class="btn btn-outline-light col-2 text-center">Add a movie</a>
     </div>
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
@@ -27,7 +27,7 @@
                 </div>
             </div>
         {% else %}
-            <p class="text-white">Aucun film trouvé.</p>
+            <p class="text-white">No movies found.</p>
         {% endfor %}
     </div>
 

@@ -8,8 +8,8 @@
         {# Colonne gauche : infos texte #}
         <div class="col-md-6 d-flex flex-column justify-content-center text-white p-5">
             <h1 class="mb-4">{{ movie.title }}</h1>
-            <p><strong>Année :</strong> {{ movie.year }}</p>
-            <p><strong>Réalisateur :</strong> {{ movie.filmmaker }}</p>
+            <p><strong>Year :</strong> {{ movie.year }}</p>
+            <p><strong>Filmmaker :</strong> {{ movie.filmmaker }}</p>
 
             <div class="my-4">
                 <form method="post" action="{{ path('app_rate', {id: movie.id}) }}">
@@ -18,12 +18,12 @@
                             id="isWatched" name="isWatched" value="1"
                             {% if movie.isWatched %}checked{% endif %}>
                         <label class="form-check-label" for="isWatched">
-                            Vu
+                            Watched
                         </label>
                     </div>
 
                     {% if movie.isWatched %}
-                        <h5>Noter ce film :</h5>
+                        <h5>Rate this movie :</h5>
                         <div class="rating">
                             {% for i in 5..1 %}
                                 <input type="radio" id="star{{ i }}" name="note" value="{{ i }}"
@@ -33,10 +33,10 @@
                         </div>
                     {% endif %}
 
-                    <button type="submit" class="btn btn-outline-light col-4 mt-3">Enregistrer</button>
+                    <button type="submit" class="btn btn-outline-light col-4 mt-3">Save</button>
                 </form>
             </div>
-            <a href="{{ path('app_movie', {id: movie.id}) }}" class="btn btn-outline-info mt-5 col-4">Modifier</a>
+            <a href="{{ path('app_modify', {id: movie.id}) }}" class="btn btn-outline-info mt-5 col-4">Modify</a>
         </div>
 
         {# Colonne droite : image en grand #}
