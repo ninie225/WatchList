@@ -16,6 +16,16 @@ class FilmRepository extends ServiceEntityRepository
         parent::__construct($registry, Film::class);
     }
 
+    public function findTop5Rated(): array {
+        return $this->createQueryBuilder("f")
+        ->andWhere('f.isWatched = :watched')
+        ->setParameter('watched', true)
+        ->orderBy('f.note', 'DESC')
+        ->setMaxResults(5)
+        ->getQuery()
+        ->getResult();
+    }
+
     //    /**
     //     * @return Film[] Returns an array of Film objects
     //     */

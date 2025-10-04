@@ -13,8 +13,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class MovieController extends AbstractController
 {
+    #[Route('/details/{id}', name: 'app_show')]
+    public function details(Film $movie): Response
+    {
+        return $this->render('crud/details.html.twig', [
+            'movie' => $movie,
+        ]);
+    }
+
     #[Route('/modify/{id}', name: 'app_modify')]
-    public function index(Request $request, Film $movie, EntityManagerInterface $em): Response
+    public function modify(Request $request, Film $movie, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(MovieFormType::class, $movie);
         $form->handleRequest($request);
@@ -25,7 +33,7 @@ final class MovieController extends AbstractController
         
             return $this->redirectToRoute('app_accueil');
         }
-        return $this->render('modify/index.html.twig', [
+        return $this->render('crud/modify.html.twig', [
             'form' => $form,
         ]);
     }
@@ -48,10 +56,16 @@ final class MovieController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // dd($movie);
+
+            $uploadedDirectory= $this->getParameter('kernel.project_dir').'/assets/uploads/movies/';
+
             $movie->setIsWatched(false);
 
-            $file = $form->get('picture')->getData();
+            $uploadedFile = $form->get('picture')->getData();
+            $nameFile= str_replace(' ','',($movie->getTitle())). '.' . ($uploadedFile->guessExtension());
+            $uploadedFile->move($uploadedDirectory, $nameFile);
+            
+            $movie->setPicture($nameFile);
             
             $entityManager->persist($movie);
             $entityManager->flush();
@@ -59,7 +73,7 @@ final class MovieController extends AbstractController
             return $this->redirectToRoute('app_accueil', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('modify/add.html.twig', [
+        return $this->render('crud/add.html.twig', [
             'movie' => $movie,
             'form' => $form,
         ]);

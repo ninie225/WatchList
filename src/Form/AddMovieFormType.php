@@ -19,25 +19,20 @@ class AddMovieFormType extends AbstractType
         $builder
         ->add('title', TextType::class, [
                 'label' => 'Title',
-                'constraints' => [
-                    new NotBlank(),
-                ],
                 ]) 
         ->add('filmmaker', TextType::class, [
                 'label' => 'Filmmaker',
-                'constraints' => [
-                    new NotBlank(),
-                ],
                 ])
         ->add('year', IntegerType::class, [
                 'label' => 'Year',
-                'constraints' => [
-                    new NotBlank(),
-                ],
                 ])
         ->add('picture', FileType::class, [
                 'label' => 'Poster', 
+                'mapped' => false,
                  'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please upload a poster',
+                    ]),
                     new File(
                         maxSize: '1024k',
                         extensions: ['png', 'jpg', 'jpeg'],

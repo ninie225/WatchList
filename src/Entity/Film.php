@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\FilmRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 #[ORM\Entity(repositoryClass: FilmRepository::class)]
 class Film
@@ -14,12 +16,20 @@ class Film
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank()]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank()]
     private ?string $filmmaker = null;
 
     #[ORM\Column]
+    #[Assert\NotNull()]
+    #[Assert\Range(
+        min: 1895,
+        max: 2025,
+        notInRangeMessage: 'The year must be between {{ min }} and {{ max }}.',
+    )]
     private ?int $year = null;
 
     #[ORM\Column]

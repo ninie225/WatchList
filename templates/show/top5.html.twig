@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Top 5 movies{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+        {% if message %}
+            <p class="text-white">{{ message }}</p>
+        {% elseif movie is not empty %}
+            {% for movie in movie %}
+                <div class="col">
+                    <div class="card h-100 bg-transparent border-0 text-center">
+                        <!-- Image en haut -->
+                        <a href="{{ path('app_show', {'id': movie.id}) }}">
+                            <img src="{{ asset('uploads/movies/' ~ movie.picture) }}" 
+                                 class="card-img-top" 
+                                 alt="{{ movie.title }}" 
+                                 style="object-fit: cover; height: 350px; width: 100%;">
+                        </a>
+
+                        <div class="card-body px-0">
+                            <!-- Titre -->
+                            <h5 class="card-title text-white">{{ movie.title }}</h5>
+
+                            <!-- Note en étoiles -->
+                            <div class="rating">
+                                {% for i in 5..1 %}
+                                    <span style="color: gold; font-size: 1.2rem;">
+                                        {% if movie.note >= i %}
+                                            ★
+                                        {% else %}
+                                            ☆
+                                        {% endif %}
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-white">No movies found.</p>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
