@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Film;
+use App\Repository\FilmRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\Repository\RepositoryFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -54,6 +57,31 @@ final class ShowController extends AbstractController
         return $this->render('show/top5.html.twig', [
             'movie' => $movie,
             'message' => $message,
+        ]);
+    }
+
+    #[Route('/search', name: 'app_search')]
+    public function search(Request $request, FilmRepository $repo): Response
+    {
+        // Retrieve search
+        $query = $request->query->get('query');
+        $movies = [];
+
+        if ($query) {
+            // Search movies by title
+            $movies = $repo->createQueryBuilder('m')
+                ->where('m.title LIKE :query')
+                ->setParameter('query', '%'.$query.'%')
+                ->getQuery()
+                ->getResult();
+        }
+        $nbMovies= count($movies);
+
+        // Displays the template with the results
+        return $this->render('accueil/search.html.twig', [
+            'movies' => $movies,
+            'query' => $query,
+            'nbMovies' => $nbMovies,
         ]);
     }
 }

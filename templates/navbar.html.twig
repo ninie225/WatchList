@@ -1,29 +1,54 @@
-<div class="container text-secondary-emphasis">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ path('app_accueil') }}">
-                <img src="{{ asset('uploads/logo/logo.png') }}" alt="Logo WatchList" height="70">
-            </a>
-            <a class="navbar-brand" href="{{ path('app_accueil') }}" class="fw-bold">WatchList</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_accueil') }}">HomePage</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_watched') }}">Movies seen</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href=" {{ path('app_toWatch') }}">Movies to watch</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_top5') }}">Top 5 movies</a>
-                    </li>
-                </ul>
+<div class="border-bottom border-secondary">
+    <div class="container text-secondary-emphasis">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a class="navbar-brand" href="{{ path('app_accueil') }}">
+                    <img src="{{ asset('uploads/logo/logo.png') }}" alt="Logo WatchList" height="70">
+                </a>
+                <a class="navbar-brand fw-bold" href="{{ path('app_accueil') }}" style="color: #34ebd8">WATCHLIST</a>
+
+                <!-- Toggle button for mobile -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Navbar and search bar -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_accueil') }}">HomePage</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_watched') }}">Movies seen</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_toWatch') }}">Movies to watch</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_top5') }}">Top 5 movies</a>
+                        </li>
+                    </ul>
+
+                    <!-- Search bar -->
+                    <form class="d-flex" role="search" method="GET" action="{{ path('app_search') }}">
+                        <div class="position-relative">
+                            <input type="text" name="query"
+                                   class="form-control rounded-pill pe-5"
+                                   placeholder="Search movies..."
+                                   aria-label="Search">
+                            <button class="btn position-absolute top-50 end-0 translate-middle-y" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-search" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
 </div>
